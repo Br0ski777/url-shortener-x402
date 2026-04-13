@@ -29,6 +29,36 @@ Do NOT use for domain intelligence -- use domain_lookup_intelligence instead. Do
         },
         required: ["url"],
       },
+      outputSchema: {
+          "type": "object",
+          "properties": {
+            "shortUrl": {
+              "type": "string",
+              "description": "Shortened URL"
+            },
+            "code": {
+              "type": "string",
+              "description": "Short code"
+            },
+            "originalUrl": {
+              "type": "string",
+              "description": "Original URL"
+            },
+            "createdAt": {
+              "type": "string",
+              "description": "Creation timestamp"
+            },
+            "hits": {
+              "type": "number",
+              "description": "Click count"
+            }
+          },
+          "required": [
+            "shortUrl",
+            "code",
+            "originalUrl"
+          ]
+        },
     },
   ],
 };
