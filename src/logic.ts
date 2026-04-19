@@ -1,6 +1,21 @@
 import type { Hono } from "hono";
 import { createHash } from "crypto";
 
+
+// ATXP: requirePayment only fires inside an ATXP context (set by atxpHono middleware).
+// For raw x402 requests, the existing @x402/hono middleware handles the gate.
+// If neither protocol is active (ATXP_CONNECTION unset), tryRequirePayment is a no-op.
+async function tryRequirePayment(price: number): Promise<void> {
+  if (!process.env.ATXP_CONNECTION) return;
+  try {
+    const { requirePayment } = await import("@atxp/server");
+    const BigNumber = (await import("bignumber.js")).default;
+    await requirePayment({ price: BigNumber(price) });
+  } catch (e: any) {
+    if (e?.code === -30402) throw e;
+  }
+}
+
 // In-memory URL store (persists for the lifetime of the server process)
 const urlStore = new Map<string, { originalUrl: string; createdAt: string; hits: number }>();
 
@@ -33,6 +48,7 @@ function isValidAlias(alias: string): boolean {
 
 export function registerRoutes(app: Hono) {
   app.post("/api/shorten", async (c) => {
+    await tryRequirePayment(0.001);
     const body = await c.req.json().catch(() => null);
     if (!body?.url) {
       return c.json({ error: "Missing required field: url" }, 400);
