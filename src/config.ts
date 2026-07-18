@@ -9,7 +9,7 @@ export const API_CONFIG: ApiConfig = {
     {
       method: "POST",
       path: "/api/shorten",
-      price: "$0.001",
+      price: "$0.003",
       description: "Shorten a URL and return the shortened version",
       toolName: "utility_shorten_url",
       toolDescription: "Use this when you need to shorten a long URL into a compact link. Accepts any valid URL and returns a shortened URL with the hash code, original URL, and creation timestamp. Do NOT use for domain intelligence — use domain_lookup_intelligence instead. Do NOT use for web scraping — use web_scrape_to_markdown instead. Do NOT use for SEO analysis — use seo_audit_page instead.",
