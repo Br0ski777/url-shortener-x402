@@ -37,7 +37,7 @@ Any x402-aware client ([`@x402/fetch`](https://www.npmjs.com/package/@x402/fetch
 
 | Tool | Method | Path | Price | Description |
 |---|---|---|---|---|
-| `utility_shorten_url` | POST | `/api/shorten` | $0.001 | Shorten a URL and return the shortened version |
+| `utility_shorten_url` | POST | `/api/shorten` | $0.003 | Shorten a URL and return the shortened version |
 
 ### `utility_shorten_url`
 
